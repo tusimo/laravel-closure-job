@@ -4,9 +4,19 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Bus\Dispatcher;
 
 if (!function_exists('dispatch_closure')) {
-    function dispatch_closure(Closure $closure)
+    function dispatch_closure(Closure $closure, $connection = null, $queue = null, $delay)
     {
-        dispatch(new \Tusimo\ClosureJob\ClosureJob($closure));
+        $job = new \Tusimo\ClosureJob\ClosureJob($closure);
+        if ($connection) {
+            $job->onConnection($connection);
+        }
+        if ($queue) {
+            $job->onQueue($queue);
+        }
+        if ($delay) {
+            $job->delay($delay);
+        }
+        dispatch($job);
     }
 }
 
