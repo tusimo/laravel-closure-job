@@ -4,7 +4,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Bus\Dispatcher;
 
 if (!function_exists('dispatch_closure')) {
-    function dispatch_closure(Closure $closure, $connection = null, $queue = null, $delay)
+    function dispatch_closure(Closure $closure, $connection = null, $queue = null, $delay = null)
     {
         $job = new \Tusimo\ClosureJob\ClosureJob($closure);
         if ($connection) {
